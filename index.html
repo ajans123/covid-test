@@ -111,8 +111,6 @@
 
         $('input').change(function () {
 
-            $('#footer').show();
-
             let i = 0,
                 totals = {
                     corona: 0,
@@ -129,6 +127,8 @@
                 if (val) {
                     i++;
 
+                    if (i === 12) $('#footer').show();
+
                     let values = {
                         corona: data[item][0],
                         nezle: data[item][1],
@@ -137,11 +137,14 @@
                     };
 
                     for (let valu in values) {
-                        if (values[valu] === parseInt(val)) totals[valu] += 100;
-                        if (values[valu] === (parseInt(val)-1) || values[valu] === (parseInt(val)+1)) totals[valu] += 75;
-                        if (values[valu] === (parseInt(val)-2) || values[valu] === (parseInt(val)+2)) totals[valu] += 50;
-                        if (values[valu] === (parseInt(val)-3) || values[valu] === (parseInt(val)+2)) totals[valu] += 25;
+                        if (parseInt(val) !== 0 && values[valu] !== 0) {
+                            if (parseInt(val) === values[valu] - 3 || parseInt(val) === values[valu] + 3) totals[valu] += 25;
+                            else if ((parseInt(val) === 1 && values[valu] === 2) || (parseInt(val) === 2 && values[valu] === 1) || (parseInt(val) === 3 && values[valu] === 4) || (parseInt(val) === 4 && values[valu] === 3)) totals[valu] += 50;
+                            else if (values[valu] === parseInt(val)) totals[valu] += 100;
+                        }
+
                     }
+
 
                 }
             }
@@ -166,9 +169,7 @@
 
             let yuvarlamasonucRaw = "<span>Muhtemel hastalığınız ;</span><table class='result-table'>";
 
-            for (let item in percentTotalOrdered)  {
-                yuvarlamasonucRaw += "<tr><td style='width: 100%'>" + percentTotalOrdered[item] + " : </td><td> %" + parseInt(item) + "</td></tr>";
-            }
+            for (let item in percentTotalOrdered) yuvarlamasonucRaw += "<tr><td style='width: 100%'>" + percentTotalOrdered[item] + " : </td><td> %" + (parseInt(item) < 1 ? 0 : parseInt(item)) + "</td></tr>";
 
             yuvarlamasonucRaw += "</table>";
 
