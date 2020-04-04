@@ -138,9 +138,8 @@
 
                     for (let valu in values) {
                         if (parseInt(val) !== 0 && values[valu] !== 0) {
-                            if (parseInt(val) === values[valu] - 3 || parseInt(val) === values[valu] + 3) totals[valu] += 25;
+                            if (values[valu] === parseInt(val)) totals[valu] += 100;
                             else if ((parseInt(val) === 1 && values[valu] === 2) || (parseInt(val) === 2 && values[valu] === 1) || (parseInt(val) === 3 && values[valu] === 4) || (parseInt(val) === 4 && values[valu] === 3)) totals[valu] += 50;
-                            else if (values[valu] === parseInt(val)) totals[valu] += 100;
                         }
 
                     }
