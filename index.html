@@ -133,7 +133,7 @@
                 if (val) {
                     i++;
 
-                    $('#footer').show();
+                    if (i === 12) $('#footer').show();
 
                     let values = {
                         corona: data[item][0],
